@@ -14,8 +14,59 @@ datasource db {
 }
 
 model Scenario{
-  id Int @id @default(autoincrement())
-  title String
-  desc String
-  datePublication DateTime @default(now())
+  id               Int @id @default(autoincrement())
+  titre            String
+  description      String
+  anneePublication DateTime @default(now())
+  type             TypePublication
+  source           String
+
+  auteurId         Int
+  auteur           Auteur          @relation(fields: [auteurId], references: [id])
+  genreId          Int
+  genre            Genre           @relation(fields: [genreId], references: [id])
+}
+
+model Genre{
+  id               Int @id @default(autoincrement())
+  nom              String
+  description      String
+
+  scenarios        Scenario[]
+}
+
+model SystemeJeu{
+  id               Int @id @default(autoincrement())
+  nom              String
+  description      String
+  source           String
+
+  auteurId         Int
+  auteur           Auteur     @relation(fields: [auteurId], references: [id])
+}
+
+model Auteur{
+  id               Int @id @default(autoincrement())
+  nom              String
+  prenom           String
+  
+  scenarios        Scenario[]
+  systemesJeu      SystemeJeu[]
+}
+
+model User{
+  id               Int @id @default(autoincrement())
+  userName         String
+  email            String
+}
+
+model Admin{
+  id               Int @id @default(autoincrement())
+  userName         String
+  email            String
+}
+
+enum TypePublication{
+  LIVRE
+  MAGAZINE
 }
