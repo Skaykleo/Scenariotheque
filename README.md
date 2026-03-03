@@ -23,19 +23,78 @@ Scénariothèque est une application web de recensement et de gestion de scénar
 
 ## Stack technique
 
-> **Frontend**: React, JavaScript
-> **Backend** : ExpressJS, JavaScript
+| Couche | Technologie |
+|---|---|
+| Frontend | React, JavaScript |
+| Backend | Node.js, Express.js |
+| Base de données | PostgreSQL (Supabase) |
+| ORM | Prisma |
+| Auth | OAuth (à définir) |
+
+---
+
+## Structure du projet
+```
+Scenariotheque/
+├── frontend/         # Application React
+├── backend/          # Serveur Express
+│   ├── src/
+│   │   ├── config/       # Configuration (Prisma, etc.)
+│   │   ├── controllers/  # Logique métier
+│   │   ├── middlewares/  # Middlewares Express
+│   │   └── routes/       # Définition des routes
+│   └── prisma/           # Schéma & migrations
+└── documentations/   # Diagrammes UML
+```
 
 ---
 
 ## Installation
 
-> Le projet est en phase de conception initiale. Les instructions d'installation seront ajoutées dès que la première version sera disponible.
-```bas
-git clone https://github.com/Skaykleo/scenariotheque.git
-cd scenariotheque
+### Prérequis
+- Node.js >= 18
+- npm
+- Un projet Supabase avec les variables d'environnement configurées
+
+### Cloner le projet
+```bash
+git clone https://github.com/Skaykleo/Scenariotheque.git
+cd Scenariotheque
 ```
+
+### Backend
+```bash
+cd backend
+npm install
+npx prisma generate
+npm run dev
+```
+
+> Le serveur démarre sur `http://localhost:8000`
+> Point de contrôle : `GET http://localhost:8000/api/health`
+
+### Frontend
+```bash
+cd frontend
+npm install
+npm start
+```
+
+> L'application démarre sur `http://localhost:3000`
 
 ---
 
-> Projet réalisé dans le cadre d'un sujet de conception — Jour 1
+## Roadmap
+
+- [x] Mise en place du serveur Express
+- [x] Schéma Prisma & migrations initiales
+- [ ] Couche DAO & métier
+- [ ] Routes API (scénarios, genres, systèmes de jeu)
+- [ ] Interface de consultation
+- [ ] Système d'authentification
+- [ ] Gestion de collection personnelle *(bonus)*
+- [ ] Notation, commentaires, recommandations *(bonus)*
+
+---
+
+> Projet réalisé dans le cadre d'un sujet de conception
