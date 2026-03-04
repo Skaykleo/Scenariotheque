@@ -124,6 +124,32 @@ Ce diagramme couvre les opérations CRUD réservées aux utilisateurs connectés
 
 ---
 
+### 4.4 Diagrammes de séquence
+
+#### Modifier un scénario
+
+![Diagramme de séquence - Modifier un scénario](./UML-Sequence-ModifierScenario.png)
+
+Ce diagramme modélise le flux de modification d'un scénario. Il couvre deux phases : le chargement de la fiche existante pour pré-remplir le formulaire, puis la soumission. La logique d'autorisation est centrale — un utilisateur ne peut modifier que ses propres scénarios, tandis qu'un administrateur peut modifier n'importe quel scénario.
+
+#### Supprimer un scénario
+
+> Diagramme à venir — en cours de réalisation.
+
+#### Consulter la liste des scénarios avec filtres
+
+> Diagramme à venir — en cours de réalisation.
+
+#### Créer un scénario
+
+> Diagramme à venir — en cours de réalisation.
+
+#### Consulter la fiche détaillée d'un scénario
+
+> Diagramme à venir — en cours de réalisation.
+
+---
+
 ## 5. Architecture technique
 
 ### Stack
@@ -191,7 +217,7 @@ Tests:       25 passed, 25 total
 - [x] Mise en place du serveur Express
 - [x] Schéma Prisma & migrations initiales
 - [x] Couche DAO & tests unitaires
-- [ ] Diagrammes de séquence
+- [ ] Diagrammes de séquence *(en cours)*
 - [ ] Controllers & routes API
 - [ ] Interface de consultation (React)
 - [ ] Système d'authentification (OAuth)
