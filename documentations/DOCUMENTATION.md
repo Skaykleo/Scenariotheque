@@ -123,7 +123,6 @@ Ce diagramme couvre les opérations CRUD réservées aux utilisateurs connectés
 ![Diagramme des paquets](./UML-PackageDiagram.png)
 
 ---
-
 ### 4.4 Diagrammes de séquence
 
 #### Modifier un scénario
@@ -132,19 +131,23 @@ Ce diagramme couvre les opérations CRUD réservées aux utilisateurs connectés
 
 Ce diagramme modélise le flux de modification d'un scénario. Il couvre deux phases : le chargement de la fiche existante pour pré-remplir le formulaire, puis la soumission. La logique d'autorisation est centrale — un utilisateur ne peut modifier que ses propres scénarios, tandis qu'un administrateur peut modifier n'importe quel scénario.
 
+#### Ajouter un scénario
+
+![Diagramme de séquence - Ajouter un scénario](./UML-Séquence-AjouterScenario.png)
+
+Ce diagramme modélise le flux de création d'un scénario par un utilisateur connecté, incluant la validation du formulaire avant l'écriture en base.
+
+#### Afficher un scénario
+
+![Diagramme de séquence - Afficher un scénario](./UML-Séquence-AfficherScenario.png)
+
+Ce diagramme modélise le flux de consultation de la fiche détaillée d'un scénario, accessible à tout visiteur sans authentification.
+
 #### Supprimer un scénario
 
 > Diagramme à venir — en cours de réalisation.
 
 #### Consulter la liste des scénarios avec filtres
-
-> Diagramme à venir — en cours de réalisation.
-
-#### Créer un scénario
-
-> Diagramme à venir — en cours de réalisation.
-
-#### Consulter la fiche détaillée d'un scénario
 
 > Diagramme à venir — en cours de réalisation.
 
