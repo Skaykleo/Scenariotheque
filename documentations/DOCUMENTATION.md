@@ -128,7 +128,7 @@ Ce diagramme couvre les opérations CRUD réservées aux utilisateurs connectés
 
 #### Modifier un scénario
 
-![Diagramme de séquence - Modifier un scénario](./UML-Sequence-ModifierScenario.png)
+![Diagramme de séquence - Modifier un scénario](./UML-Séquence-UpdateScenario.png)
 
 Ce diagramme modélise le flux de modification d'un scénario. Il couvre deux phases : le chargement de la fiche existante pour pré-remplir le formulaire, puis la soumission. La logique d'autorisation est centrale — un utilisateur ne peut modifier que ses propres scénarios, tandis qu'un administrateur peut modifier n'importe quel scénario.
 
