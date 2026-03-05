@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import { useEffect } from "react";
+import { getScenarios } from "./services/scenario.service";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  useEffect(() => {
+    async function test() {
+      const scenarios = await getScenarios();
+      console.log(scenarios);
+    }
+
+    test();
+  }, []);
+
+  return <div>Test API</div>;
 }
 
 export default App;

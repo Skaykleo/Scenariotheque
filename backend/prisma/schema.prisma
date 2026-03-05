@@ -23,8 +23,11 @@ model Scenario{
 
   auteurId         Int
   auteur           Auteur          @relation(fields: [auteurId], references: [id])
+
   genreId          Int
   genre            Genre           @relation(fields: [genreId], references: [id])
+
+  systemeJeu       ScenarioSystemeJeu[]
 }
 
 model Genre{
@@ -43,7 +46,20 @@ model SystemeJeu{
 
   auteurId         Int
   auteur           Auteur     @relation(fields: [auteurId], references: [id])
+  
+  scenarios   ScenarioSystemeJeu[]
 }
+
+model ScenarioSystemeJeu {
+  scenarioId  Int
+  systemeJeuId Int
+
+  scenario    Scenario  @relation(fields: [scenarioId], references: [id], onDelete: Cascade)
+  systemeJeu  SystemeJeu @relation(fields: [systemeJeuId], references: [id], onDelete: Cascade)
+
+  @@id([scenarioId, systemeJeuId])
+}
+
 
 model Auteur{
   id               Int @id @default(autoincrement())
