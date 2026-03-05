@@ -1,19 +1,11 @@
-// src/App.js
-import { useEffect } from "react";
-import { getScenarios } from "./services/scenario.service";
+import logo from './logo.svg';
+import HomePage from './pages/home.page.jsx';
+import './App.css';
 
 function App() {
-
-  useEffect(() => {
-    async function test() {
-      const scenarios = await getScenarios();
-      console.log(scenarios);
-    }
-
-    test();
-  }, []);
-
-  return <div>Test API</div>;
+  return (
+    <HomePage />
+  );
 }
 
 export default App;
