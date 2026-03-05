@@ -1,10 +1,16 @@
 /**
  * @param {Object}   props
- * @param {boolean}  props.isLoggedIn  - L'utilisateur est-il connecté ?
- * @param {string}   props.userName    - Prénom de l'utilisateur (si connecté)
- * @param {Function} props.onDismiss   - Callback appelé quand l'utilisateur ferme le bandeau
+ * @param {boolean}  props.isLoggedIn    - L'utilisateur est-il connecté ?
+ * @param {string}   props.userName      - Prénom de l'utilisateur (si connecté)
+ * @param {Function} props.onDismiss     - Callback appelé quand l'utilisateur ferme le bandeau
+ * @param {Function} props.onSubmitClick - Callback pour ouvrir la modal de soumission
  */
-export default function ContributeCallout({ isLoggedIn = false, userName = "", onDismiss }) {
+export default function ContributeCallout({
+  isLoggedIn = false,
+  userName = "",
+  onDismiss,
+  onSubmitClick,
+}) {
   return (
     <div className={`contribute-callout${isLoggedIn ? "" : " contribute-callout--guest"}`}>
       {/* Fonds décoratifs */}
@@ -56,20 +62,23 @@ export default function ContributeCallout({ isLoggedIn = false, userName = "", o
       <div className="contribute-callout__actions">
         {isLoggedIn ? (
           <>
-            <a href="#" className="contribute-callout__btn--primary">
+            <button
+              className="contribute-callout__btn--primary"
+              onClick={onSubmitClick}
+            >
               <PenIcon />
               Soumettre un scénario
-            </a>
+            </button>
             <a href="#" className="contribute-callout__btn--secondary">
               Voir mes publications →
             </a>
           </>
         ) : (
           <>
-            <a href="#" className="contribute-callout__btn--primary">
+            <a href="/inscription" className="contribute-callout__btn--primary">
               Créer un compte — c'est gratuit
             </a>
-            <a href="#" className="contribute-callout__btn--secondary">
+            <a href="/connexion" className="contribute-callout__btn--secondary">
               Déjà membre ? Se connecter →
             </a>
           </>

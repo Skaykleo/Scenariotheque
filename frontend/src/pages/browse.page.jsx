@@ -8,6 +8,8 @@ import ScenarioGrid from "../components/scenarioGrid.component";
 import EntityCard from "../components/entityCard.component";
 import Contribute from "../components/contribute.component";
 import DetailModal from "../components/detailModal.component";
+import SubmitScenarioModal from "../components/submitScenarioModal.component";
+import { useAuth } from "../context/AuthContext";
 
 // ─── Mock data ────────────────────────────────────────────────
 const MOCK_SCENARIOS = [
@@ -59,8 +61,9 @@ const MOCK_SYSTEMS = [
 
 // ─── Composant principal ──────────────────────────────────────
 export default function BrowsePage() {
-  // Simulation de l'état de connexion — à remplacer par votre auth
-  const [isLoggedIn] = useState(false);
+  const [submitOpen, setSubmitOpen] = useState(false);
+  const { user, loading } = useAuth();
+  const isLoggedIn = !!user;
 
   // Navigation
   const [activeTab,  setActiveTab]  = useState("scenarios");
@@ -183,6 +186,13 @@ export default function BrowsePage() {
         type={modal?.type}
         data={modal?.data}
       />
+      <SubmitScenarioModal
+        isOpen={submitOpen}
+        onClose={() => setSubmitOpen(false)}
+        onSubmit={async (formData) => {
+          // await api.post("/scenarios", formData);
+        }}
+      />
 
       {/* En-tête de la page */}
       <header className="browse-page__header">
@@ -230,8 +240,9 @@ export default function BrowsePage() {
           {!calloutDismissed && (
             <Contribute
               isLoggedIn={isLoggedIn}
-              userName="Romaric"
+              userName={user?.firstName}
               onDismiss={handleDismissCallout}
+              onSubmitClick={() => setSubmitOpen(true)}
             />
           )}
 
