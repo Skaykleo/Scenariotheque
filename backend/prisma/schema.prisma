@@ -1,88 +1,87 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../node_modules/.prisma/client"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-model Scenario{
-  id               Int @id @default(autoincrement())
-  titre            String
-  description      String
-  anneePublication DateTime @default(now())
-  type             TypePublication
+model Scenario {
+  id               Int             @id @default(autoincrement())
   source           String
-
+  type             TypePublication
+  anneePublication DateTime        @default(now())
   auteurId         Int
-  auteur           Auteur          @relation(fields: [auteurId], references: [id])
-
+  description      String
   genreId          Int
+  titre            String
+
+  auteur           Auteur          @relation(fields: [auteurId], references: [id])
   genre            Genre           @relation(fields: [genreId], references: [id])
 
-  systemeJeu       ScenarioSystemeJeu[]
+  systemesJeu      ScenarioSystemeJeu[]
 }
 
-model Genre{
-  id               Int @id @default(autoincrement())
-  nom              String
-  description      String
-
-  scenarios        Scenario[]
+model Genre {
+  id          Int        @id @default(autoincrement())
+  nom         String
+  description String
+  scenarios   Scenario[]
 }
 
-model SystemeJeu{
-  id               Int @id @default(autoincrement())
-  nom              String
-  description      String
-  source           String
+model SystemeJeu {
+  id          Int    @id @default(autoincrement())
+  nom         String
+  description String
+  source      String
 
-  auteurId         Int
-  auteur           Auteur     @relation(fields: [auteurId], references: [id])
-  
+  auteurId    Int
+  auteur      Auteur @relation(fields: [auteurId], references: [id])
+
   scenarios   ScenarioSystemeJeu[]
 }
 
 model ScenarioSystemeJeu {
-  scenarioId  Int
+  scenarioId   Int
   systemeJeuId Int
 
-  scenario    Scenario  @relation(fields: [scenarioId], references: [id], onDelete: Cascade)
-  systemeJeu  SystemeJeu @relation(fields: [systemeJeuId], references: [id], onDelete: Cascade)
+  scenario     Scenario  @relation(fields: [scenarioId], references: [id], onDelete: Cascade)
+  systemeJeu   SystemeJeu @relation(fields: [systemeJeuId], references: [id], onDelete: Cascade)
 
   @@id([scenarioId, systemeJeuId])
 }
 
-
-model Auteur{
-  id               Int @id @default(autoincrement())
-  nom              String
-  prenom           String
-  
-  scenarios        Scenario[]
-  systemesJeu      SystemeJeu[]
+model Auteur {
+  id          Int          @id @default(autoincrement())
+  nom         String
+  prenom      String
+  scenarios   Scenario[]
+  systemesJeu SystemeJeu[]
 }
 
-model User{
-  id               Int @id @default(autoincrement())
-  userName         String
-  email            String
+model User {
+  id       Int    @id @default(autoincrement())
+  userName String
+  email    String
+  googleId String @unique
 }
 
-model Admin{
-  id               Int @id @default(autoincrement())
-  userName         String
-  email            String
+model Admin {
+  id       Int    @id @default(autoincrement())
+  userName String
+  email    String
+  googleId String @unique
 }
 
-enum TypePublication{
+model session {
+  sid    String   @id @db.VarChar
+  sess   Json     @db.Json
+  expire DateTime @db.Timestamp(6)
+
+  @@index([expire], map: "IDX_session_expire")
+}
+
+enum TypePublication {
   LIVRE
   MAGAZINE
 }

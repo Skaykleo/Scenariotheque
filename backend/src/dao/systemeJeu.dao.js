@@ -1,22 +1,25 @@
 const prisma = require("../config/prisma");
 
+const includeSystemeJeu = {
+  auteur: true,
+  scenarios: { include: { scenario: true } },
+};
+
 const findAll = async () => {
-  return prisma.systemeJeu.findMany({
-    include: { auteur: true },
-  });
+  return prisma.systemeJeu.findMany({ include: includeSystemeJeu });
 };
 
 const findById = async (id) => {
   return prisma.systemeJeu.findUnique({
     where: { id },
-    include: { auteur: true },
+    include: includeSystemeJeu,
   });
 };
 
 const create = async (data) => {
   return prisma.systemeJeu.create({
     data,
-    include: { auteur: true },
+    include: includeSystemeJeu,
   });
 };
 
@@ -24,7 +27,7 @@ const update = async (id, data) => {
   return prisma.systemeJeu.update({
     where: { id },
     data,
-    include: { auteur: true },
+    include: includeSystemeJeu,
   });
 };
 

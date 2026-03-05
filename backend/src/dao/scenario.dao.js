@@ -1,15 +1,21 @@
 const prisma = require("../config/prisma");
 
+const includeScenario = {
+  auteur: true,
+  genre: true,
+  systemesJeu: { include: { systemeJeu: true } },
+};
+
 const findAll = async () => {
   return prisma.scenario.findMany({
-    include: { auteur: true, genre: true, systemeJeu: true },
+    include: includeScenario,
   });
 };
 
 const findById = async (id) => {
   return prisma.scenario.findUnique({
     where: { id },
-    include: { auteur: true, genre: true, systemeJeu: true },
+    include: includeScenario,
   });
 };
 
@@ -24,7 +30,6 @@ const findByFiltres = async ({
     where: {
       ...(genreId && { genreId }),
       ...(auteurId && { auteurId }),
-      ...(systemeJeuId && { systemeJeuId }),
       ...(type && { type }),
       ...(anneePublication && {
         anneePublication: {
@@ -32,23 +37,51 @@ const findByFiltres = async ({
           lte: new Date(`${anneePublication}-12-31`),
         },
       }),
+      ...(systemeJeuId && {
+        systemesJeu: {
+          some: { systemeJeuId },
+        },
+      }),
     },
-    include: { auteur: true, genre: true, systemeJeu: true },
+    include: includeScenario,
   });
 };
 
 const create = async (data) => {
+  const { systemeJeuIds, ...scenarioData } = data;
+
   return prisma.scenario.create({
-    data,
-    include: { auteur: true, genre: true, systemeJeu: true },
+    data: {
+      ...scenarioData,
+      ...(Array.isArray(systemeJeuIds) && systemeJeuIds.length > 0
+        ? {
+            systemesJeu: {
+              create: systemeJeuIds.map((id) => ({ systemeJeuId: id })),
+            },
+          }
+        : {}),
+    },
+    include: includeScenario,
   });
 };
 
 const update = async (id, data) => {
+  const { systemeJeuIds, ...patch } = data;
+
   return prisma.scenario.update({
     where: { id },
-    data,
-    include: { auteur: true, genre: true, systemeJeu: true },
+    data: {
+      ...patch,
+      ...(Array.isArray(systemeJeuIds)
+        ? {
+            systemesJeu: {
+              deleteMany: {},
+              create: systemeJeuIds.map((sid) => ({ systemeJeuId: sid })),
+            },
+          }
+        : {}),
+    },
+    include: includeScenario,
   });
 };
 
