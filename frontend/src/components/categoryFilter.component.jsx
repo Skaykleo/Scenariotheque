@@ -2,13 +2,13 @@ import { useState } from "react";
 
 const CATEGORIES = [
   { id: "all",        label: "Tous",           icon: "✦" },
-  { id: "fantasy",    label: "Fantastique",     icon: "🏰" },
-  { id: "scifi",      label: "Science-Fiction", icon: "🚀" },
-  { id: "thriller",   label: "Thriller",        icon: "🔪" },
-  { id: "horror",     label: "Horreur",         icon: "💀" },
+  { id: "Fantastique",    label: "Fantastique",     icon: "🏰" },
+  { id: "Science-Fiction",      label: "Science-Fiction", icon: "🚀" },
+  { id: "Thriller",   label: "Thriller",        icon: "🔪" },
+  { id: "Horreur",     label: "Horreur",         icon: "💀" },
   { id: "romance",    label: "Romance",         icon: "🌹" },
-  { id: "historical", label: "Historique",      icon: "⚔️" },
-  { id: "mystery",    label: "Mystère",         icon: "🔍" },
+  { id: "Historique", label: "Historique",      icon: "⚔️" },
+  { id: "Mystère",    label: "Mystère",         icon: "🔍" },
 ];
 
 export default function CategoryFilter({ onSelect }) {

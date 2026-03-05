@@ -8,8 +8,8 @@
  * @param {number}   props.rating     - Note sur 5
  * @param {number}   props.pageCount  - Nombre de pages
  * @param {boolean}  props.featured   - Si le scénario est mis en avant
+ * @param {Function} props.onOpen     - Callback pour ouvrir la modal de détail
  */
-
 export default function ScenarioCard({
   title      = "Le Manoir des Ombres",
   genre      = "Horreur",
@@ -19,21 +19,33 @@ export default function ScenarioCard({
   rating     = 4.3,
   pageCount  = 48,
   featured   = false,
+  onOpen,
+  // Props passés en plus pour la modal (optionnels, enrichis dans BrowsePage)
+  ...rest
 }) {
   const GENRE_COLORS = {
-    "Horreur":          "#8b2a2a",
-    "Fantastique":      "#2a5a8b",
-    "Science-Fiction":  "#1a6b5a",
-    "Thriller":         "#5a3a8b",
-    "Romance":          "#8b3a5a",
-    "Historique":       "#6b5a2a",
-    "Mystère":          "#2a4a6b",
+    "Horreur":         "#8b2a2a",
+    "Fantastique":     "#2a5a8b",
+    "Science-Fiction": "#1a6b5a",
+    "Thriller":        "#5a3a8b",
+    "Romance":         "#8b3a5a",
+    "Historique":      "#6b5a2a",
+    "Mystère":         "#2a4a6b",
   };
 
   const genreColor = GENRE_COLORS[genre] || "#5a4a3a";
 
+  function handleOpen(e) {
+    e.preventDefault();
+    if (onOpen) onOpen({ title, genre, author, excerpt, tags, rating, pageCount, featured, ...rest });
+  }
+
   return (
-    <article className={`scenario-card${featured ? " scenario-card--featured" : ""}`}>
+    <article
+      className={`scenario-card${featured ? " scenario-card--featured" : ""}`}
+      onClick={handleOpen}
+      style={{ cursor: "pointer" }}
+    >
       {/* Featured badge */}
       {featured && (
         <div className="scenario-card__featured-badge">
@@ -51,7 +63,7 @@ export default function ScenarioCard({
         <h3 className="scenario-card__title">{title}</h3>
         <p className="scenario-card__author">par {author}</p>
 
-        {/* Separator — background reste inline car dépend de la couleur d'accent */}
+        {/* Separator */}
         <div className="scenario-card__sep">
           <span
             className="scenario-card__sep-line"
@@ -86,9 +98,14 @@ export default function ScenarioCard({
           </span>
         </div>
 
-        <a href="#" className="scenario-card__read-btn">
-          Lire →
-        </a>
+        {/* Bouton qui stoppe la propagation du clic parent */}
+        <button
+          className="scenario-card__read-btn"
+          onClick={handleOpen}
+          style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+        >
+          Voir le détail →
+        </button>
       </div>
 
       {/* Hover glow — géré en CSS via :hover sur .scenario-card */}

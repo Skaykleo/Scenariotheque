@@ -4,10 +4,11 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: "Parcourir", href: "#" },
-    { label: "Genres", href: "#" },
-    { label: "Auteurs", href: "#" },
-    { label: "Nouveautés", href: "#" },
+    { label: "Accueil", href: "/" },
+    { label: "Parcourir", href: "parcourir" },
+    // { label: "Genres", href: "#" },
+    // { label: "Auteurs", href: "#" },
+    // { label: "Nouveautés", href: "#" },
   ];
 
   return (
