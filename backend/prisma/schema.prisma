@@ -5,8 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../node_modules/.prisma/client"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -56,12 +55,14 @@ model Auteur{
 
 model User{
   id               Int @id @default(autoincrement())
+  googleId         String @unique
   userName         String
   email            String
 }
 
 model Admin{
   id               Int @id @default(autoincrement())
+  googleId         String @unique
   userName         String
   email            String
 }
