@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { isAuthenticated } = require("../middlewares/authMiddleware");
 
 const genreController = require("../controllers/genre.controller");
 const auteurController = require("../controllers/auteur.controller");
