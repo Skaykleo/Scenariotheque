@@ -1,6 +1,7 @@
 import { useState } from "react";
+import AuthButton from "./authButton.component";
 
-export default function Navbar() {
+export default function Navbar({ onProfile }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
@@ -16,7 +17,6 @@ export default function Navbar() {
       <div className="navbar__top-border" />
 
       <div className="navbar__inner">
-        {/* Logo */}
         <a href="#" className="navbar__logo">
           <span className="navbar__logo-icon">✦</span>
           <span>
@@ -25,7 +25,6 @@ export default function Navbar() {
           </span>
         </a>
 
-        {/* Desktop links */}
         <ul className="navbar__links">
           {navLinks.map((link) => (
             <li key={link.label}>
@@ -36,39 +35,42 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Actions */}
         <div className="navbar__actions">
           <button className="navbar__search-btn" aria-label="Rechercher">
             <SearchIcon />
           </button>
-          <a href="#" className="navbar__cta">
-            Connexion
-          </a>
+          <AuthButton onProfile={onProfile} />
         </div>
 
-        {/* Burger mobile */}
         <button
           className="navbar__burger"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menu"
         >
-          <span className={`navbar__burger-line navbar__burger-line--top${menuOpen ? " is-open" : ""}`} />
-          <span className={`navbar__burger-line navbar__burger-line--mid${menuOpen ? " is-open" : ""}`} />
-          <span className={`navbar__burger-line navbar__burger-line--bot${menuOpen ? " is-open" : ""}`} />
+          <span
+            className={`navbar__burger-line navbar__burger-line--top${menuOpen ? " is-open" : ""}`}
+          />
+          <span
+            className={`navbar__burger-line navbar__burger-line--mid${menuOpen ? " is-open" : ""}`}
+          />
+          <span
+            className={`navbar__burger-line navbar__burger-line--bot${menuOpen ? " is-open" : ""}`}
+          />
         </button>
       </div>
 
-      {/* Menu mobile */}
       {menuOpen && (
         <div className="navbar__mobile-menu">
           {navLinks.map((link) => (
-            <a key={link.label} href={link.href} className="navbar__mobile-link">
+            <a
+              key={link.label}
+              href={link.href}
+              className="navbar__mobile-link"
+            >
               {link.label}
             </a>
           ))}
-          <a href="#" className="navbar__cta navbar__mobile-cta">
-            Connexion
-          </a>
+          <AuthButton onProfile={onProfile} />
         </div>
       )}
     </nav>
@@ -92,3 +94,4 @@ function SearchIcon() {
     </svg>
   );
 }
+

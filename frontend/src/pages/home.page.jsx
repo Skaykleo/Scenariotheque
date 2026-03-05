@@ -6,12 +6,12 @@ import CategoryFilter from "../components/categoryFilter.component";
 import FeaturedScenarios from "../components/featuredScenarios.component";
 import Footer from "../components/footer.component";
 
-export default function HomePage() {
+export default function HomePage({ onProfile }) {
   const [activeCategory, setActiveCategory] = useState("all");
 
   return (
     <div className="homepage">
-      <Navbar />
+      <Navbar onProfile={onProfile} />
       <HeroSection />
       <Ornament />
       <CategoryFilter onSelect={setActiveCategory} />
@@ -21,10 +21,6 @@ export default function HomePage() {
     </div>
   );
 }
-
-// ─────────────────────────────────────────
-// Sous-composants locaux
-// ─────────────────────────────────────────
 
 function Ornament() {
   return (
@@ -48,8 +44,9 @@ function ContributeBanner() {
           <em>à partager ?</em>
         </h2>
         <p className="contribute__desc">
-          La Scénariothèque est une bibliothèque vivante, alimentée par des auteurs passionnés.
-          Soumettez vos scénarios et donnez-leur une audience.
+          La Scénariothèque est une bibliothèque vivante, alimentée par des
+          auteurs passionnés. Soumettez vos scénarios et donnez-leur une
+          audience.
         </p>
         <a href="#" className="contribute__cta">
           Soumettre un scénario
@@ -58,3 +55,4 @@ function ContributeBanner() {
     </section>
   );
 }
+
