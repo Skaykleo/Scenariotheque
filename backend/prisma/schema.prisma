@@ -13,11 +13,10 @@ model Scenario {
   anneePublication DateTime        @default(now())
   auteurId         Int
   description      String
-  genreId          Int
   titre            String
 
   auteur           Auteur          @relation(fields: [auteurId], references: [id])
-  genre            Genre           @relation(fields: [genreId], references: [id])
+  genres           ScenarioGenre[]
 
   systemesJeu      ScenarioSystemeJeu[]
 }
@@ -26,7 +25,7 @@ model Genre {
   id          Int        @id @default(autoincrement())
   nom         String
   description String
-  scenarios   Scenario[]
+  scenarios   ScenarioGenre[]
 }
 
 model SystemeJeu {
@@ -49,6 +48,16 @@ model ScenarioSystemeJeu {
   systemeJeu   SystemeJeu @relation(fields: [systemeJeuId], references: [id], onDelete: Cascade)
 
   @@id([scenarioId, systemeJeuId])
+}
+
+model ScenarioGenre {
+  scenarioId Int
+  genreId    Int
+
+  scenario   Scenario @relation(fields: [scenarioId], references: [id])
+  genre      Genre    @relation(fields: [genreId], references: [id])
+
+  @@id([scenarioId, genreId])
 }
 
 model Auteur {

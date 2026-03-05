@@ -2,7 +2,7 @@ const prisma = require("../config/prisma");
 
 const includeScenario = {
   auteur: true,
-  genre: true,
+  genres: { include: { genre: true } },
   systemesJeu: { include: { systemeJeu: true } },
 };
 
@@ -48,37 +48,53 @@ const findByFiltres = async ({
 };
 
 const create = async (data) => {
-  const { systemeJeuIds, ...scenarioData } = data;
+  const { genreIds, systemeJeuIds, ...scenarioData } = data;
 
   return prisma.scenario.create({
     data: {
       ...scenarioData,
+
+      ...(Array.isArray(genreIds) && genreIds.length > 0
+        ? {
+            genres: {
+              create: genreIds.map((id) => ({
+                genreId: id,
+              })),
+            },
+          }
+        : {}),
+
       ...(Array.isArray(systemeJeuIds) && systemeJeuIds.length > 0
         ? {
             systemesJeu: {
-              create: systemeJeuIds.map((id) => ({ systemeJeuId: id })),
+              create: systemeJeuIds.map((id) => ({
+                systemeJeuId: id,
+              })),
             },
           }
         : {}),
     },
-    include: includeScenario,
+
+    include: {
+      auteur: true,
+      genres: { include: { genre: true } },
+      systemesJeu: { include: { systemeJeu: true } },
+    },
   });
 };
 
 const update = async (id, data) => {
-  const { systemeJeuIds, ...patch } = data;
+  const { systemeJeuIds, genreIds, ...patch } = data;
 
   return prisma.scenario.update({
     where: { id },
     data: {
       ...patch,
       ...(Array.isArray(systemeJeuIds)
-        ? {
-            systemesJeu: {
-              deleteMany: {},
-              create: systemeJeuIds.map((sid) => ({ systemeJeuId: sid })),
-            },
-          }
+        ? { systemesJeu: { deleteMany: {}, create: systemeJeuIds.map((sid) => ({ systemeJeuId: sid })) } }
+        : {}),
+      ...(Array.isArray(genreIds)
+        ? { genres: { deleteMany: {}, create: genreIds.map((gid) => ({ genreId: gid })) } }
         : {}),
     },
     include: includeScenario,

@@ -427,21 +427,6 @@ function Step1({ form, set, errors }) {
         </p>
         {errors.authors && <p className="submit-field__error">⚠ {errors.authors}</p>}
       </div>
-
-      {/* Langue */}
-      <div className="submit-field" style={{ maxWidth: "280px" }}>
-        <label className="submit-field__label" htmlFor="submit-lang">Langue</label>
-        <select
-          id="submit-lang"
-          className="submit-select"
-          value={form.language}
-          onChange={(e) => set("language", e.target.value)}
-        >
-          {["Français", "Anglais", "Espagnol", "Allemand", "Italien", "Autre"].map((l) => (
-            <option key={l} value={l}>{l}</option>
-          ))}
-        </select>
-      </div>
     </div>
   );
 }
