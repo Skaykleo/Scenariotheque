@@ -10,7 +10,7 @@ export async function getScenarioById(id) {
   return res.json();
 }
 
-export async function createScenario(data) {
+export default async function createScenario(data) {
   const res = await fetch(API_URL, {
     method: "POST",
     headers: {

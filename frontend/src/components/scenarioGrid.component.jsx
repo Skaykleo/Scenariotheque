@@ -68,11 +68,14 @@ export default function ScenarioGrid({
         </div>
       </div>
 
-      {/* Grille */}
+      {/* Grille ou liste selon le mode */}
       {scenarios.length > 0 ? (
-        <div className="scenario-grid" style={{ marginTop: "16px" }}>
+        <div
+          className={`scenario-grid${view === "list" ? " scenario-grid--list" : ""}`}
+          style={{ marginTop: "16px" }}
+        >
           {scenarios.map((scenario) => (
-            <ScenarioCard key={scenario.id} {...scenario} onOpen={onCardClick} />
+            <ScenarioCard key={scenario.id} {...scenario} view={view} onOpen={onCardClick} />
           ))}
         </div>
       ) : (

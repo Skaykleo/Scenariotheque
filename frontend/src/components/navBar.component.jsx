@@ -36,9 +36,9 @@ export default function Navbar({ onProfile }) {
         </ul>
 
         <div className="navbar__actions">
-          <button className="navbar__search-btn" aria-label="Rechercher">
+          {/* <button className="navbar__search-btn" aria-label="Rechercher">
             <SearchIcon />
-          </button>
+          </button> */}
           <AuthButton onProfile={onProfile} />
         </div>
 

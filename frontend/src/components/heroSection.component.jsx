@@ -1,4 +1,4 @@
-export default function HeroSection() {
+export default function HeroSection({}) {
   return (
     <section className="hero">
       <div className="hero__bg-layer1" />
@@ -29,11 +29,8 @@ export default function HeroSection() {
         </p>
 
         <div className="hero__ctas">
-          <a href="#" className="hero__cta--primary">
+          <a href="/parcourir" className="hero__cta--primary">
             Parcourir la collection
-          </a>
-          <a href="#" className="hero__cta--secondary">
-            Contribuer un scénario
           </a>
         </div>
 

@@ -247,6 +247,9 @@ export default function SubmitScenarioModal({ isOpen, onClose, onSubmit }) {
         tabIndex={-1}
       >
         {/* Bouton fermeture */}
+        {
+
+        }
         <button className="modal__close" onClick={handleClose} aria-label="Fermer">×</button>
 
         {/* Barre de progression */}

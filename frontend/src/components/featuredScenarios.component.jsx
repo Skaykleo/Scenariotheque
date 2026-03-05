@@ -58,7 +58,7 @@ const MOCK_SCENARIOS = [
   },
 ];
 
-export default function FeaturedScenarios({ activeCategory = "all" }) {
+export default function FeaturedScenarios({ activeCategory = "all", onCardClick }) {
   const filtered =
     activeCategory === "all"
       ? MOCK_SCENARIOS
@@ -73,7 +73,7 @@ export default function FeaturedScenarios({ activeCategory = "all" }) {
           <p className="featured-scenarios__section-label">✦ Collection</p>
           <h2 className="featured-scenarios__section-title">Scénarios à la une</h2>
         </div>
-        <a href="#" className="featured-scenarios__view-all">
+        <a href="parcourir" className="featured-scenarios__view-all">
           Voir tout →
         </a>
       </div>
@@ -81,7 +81,7 @@ export default function FeaturedScenarios({ activeCategory = "all" }) {
       {filtered.length > 0 ? (
         <div className="featured-scenarios__grid">
           {filtered.map((scenario) => (
-            <ScenarioCard key={scenario.id} {...scenario} />
+            <ScenarioCard key={scenario.id} {...scenario} onOpen={onCardClick} />
           ))}
         </div>
       ) : (
@@ -93,11 +93,11 @@ export default function FeaturedScenarios({ activeCategory = "all" }) {
         </div>
       )}
 
-      <div className="featured-scenarios__load-more">
+      {/* <div className="featured-scenarios__load-more">
         <button className="featured-scenarios__load-more-btn">
           Charger plus de scénarios
         </button>
-      </div>
+      </div> */}
     </section>
   );
 }

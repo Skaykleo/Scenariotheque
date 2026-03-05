@@ -19,15 +19,18 @@ export default function ContributeCallout({
         {isLoggedIn ? "✍" : "✦"}
       </div>
 
+
       {/* Bouton fermeture */}
-      <button
-        className="contribute-callout__dismiss"
-        onClick={onDismiss}
-        aria-label="Ne plus afficher cette suggestion"
-        title="Ne plus afficher lors de cette visite"
-      >
-        ×
-      </button>
+      {!isLoggedIn && (
+        <button
+          className="contribute-callout__dismiss"
+          onClick={onDismiss}
+          aria-label="Ne plus afficher cette suggestion"
+          title="Ne plus afficher lors de cette visite"
+        >
+          ×
+        </button>
+      )}
 
       {/* Contenu textuel */}
       <div className="contribute-callout__content">
